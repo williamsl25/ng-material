@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Angular Material</title>
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
+  </head>
+  <body ng-app="MyApp" layout="column" ng-controller="UserController as ul">
+    <!-- layout="column will make the children to layout in columns" -->
+    <md-toolbar layout="row">
+      <md-button class="menu" ng-click="ul.toggleList();" aria-label="show User List" hide-gt-sm>
+        <!-- hide-gt-sm will hide hamburger when screen large-->
+        <md-icon md-svg-src="menu"></md-icon>
+      </md-button>
+      <h3>Angular Material Toolbar</h3>
+    </md-toolbar>
+    <div class="container" layout="row" flex>
+      <!-- with material this will make contents in container layout in a row and flex tells it to fill the remaining space-->
+      <md-sidenav md-is-locked-open="$mdMedia('gt-sm')"  class="md-whiteframe-z2" md-component-id="left">
+            <!-- keeps the sidebar open until screen size is greater than small -->
+            <!-- md-whiteframe-z2  adds a shadow the the sidenav -->
+        <md-list ng-click="ul.toggleList()">
+
+          <!-- List item #1 -->
+          <md-list-item ng-repeat="u in ul.users">
+              <md-button ng-click="ul.selectUser(u)">
+                <md-icon md-svg-src="{{u.avatar}}" class="avatar"></md-icon>
+                {{u.name}}
+              </md-button>
+          </md-list-item>
+
+        </md-list>
+      </md-sidenav>
+
+
+      <md-content id="content" flex>
+      <!-- flex will make content fill the rest of the row -->
+      <!-- User details sample -->
+
+        <md-icon md-svg-src="{{ul.selected.avatar}}" class="avatar"></md-icon>
+          <h2>{{ul.selected.name}}</h2>
+          <p>
+            {{ul.selected.content}}
+          </p>
+
+          <!-- add share button here -->
+          <md-button class="share" md-no-ink aria-label="share with {{ul.selected.name}}" ng-click="ul.share(ul.selected)"> <!-- md-no-ink will remove ripple effect when pressing button * aria-label="share" will get rid of warning (btn does not have text in it, so warning given bc arrow does not have text)-->
+            <md-icon md-svg-icon="share"></md-icon>
+          </md-button>
+
+        </md-content>
+
+    </div>
+
+
+
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.js"></script>
+    <script src="node_modules/angular-aria/angular-aria.min.js"></script>
+    <script src="node_modules/angular-material/angular-material.min.js"></script>
+<!-- declare the app and add array that the app depends on -> ngMaterial-->
+    <script src="app.module.js" type="text/javascript"></script>
+    <script src="Users.js" type="text/javascript"></script>
+    <script src="UserService.js" type="text/javascript"></script>
+    <script src="UserController.js" type="text/javascript"></script>
+
+
+
+  </body>
+</html>
